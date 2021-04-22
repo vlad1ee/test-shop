@@ -1,0 +1,5 @@
+django
+djangorestframework
+django-mptt
+djoser
+python-dotenv
