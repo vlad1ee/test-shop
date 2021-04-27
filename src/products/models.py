@@ -32,7 +32,7 @@ class Size(models.Model):
                                 related_name='sizes')
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.size}'
 
 
 class Color(models.Model):
@@ -42,7 +42,7 @@ class Color(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.color}'
 
 
 class CartManager(models.Manager):
@@ -87,9 +87,6 @@ class Cart(models.Model):
 
 
 def cart_receiver(sender, instance, action, *args, **kwargs):
-    print(sender)
-    print(instance)
-    print(action)
     if action == 'post_add' or action == 'post_remove' or action == \
             'post_clear':
         total = 0

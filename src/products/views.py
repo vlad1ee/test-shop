@@ -16,8 +16,6 @@ class CategoryAPIView(APIView):
             parent=None)
         serializer = CategorySerializer(categories, many=True,
                                         context=serializer_context)
-        serializer.is_valid(raise_exception=True)
-
         return Response(serializer.data)
 
 
@@ -27,7 +25,6 @@ class CategoryDetailAPIView(APIView):
         category = Category.objects.prefetch_related('products').get(pk=pk)
         serializer = CategoryDetailSerializer(category,
                                               context=serializer_context)
-        serializer.is_valid(raise_exception=True)
         return Response(serializer.data)
 
 
@@ -37,20 +34,13 @@ class ProductAPIView(APIView):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True,
                                        context=serializer_context)
-        serializer.is_valid(raise_exception=True)
         return Response(serializer.data)
 
 
 class CartAddAPIView(APIView):
     def get(self, request):
-        print(request.data)
-        serializer_context = {'request': request}
-        cart = Cart.objects.get_or_new(request)[0]
-        # serializer = CartSerializer(data=cart, context=serializer_context)
-        serializer = CartSerializer(cart)
-        # print(serializer)
-        # serializer.is_valid(raise_exception=True)
-        # print(serializer.data)
+        cart_obj, new_obj = Cart.objects.get_or_new(request)
+        serializer = CartSerializer(cart_obj)
         return Response(serializer.data)
 
     def post(self, request):
