@@ -3,3 +3,5 @@ djangorestframework
 django-mptt
 djoser
 python-dotenv
+djangorestframework-recursive
+psycopg2-binary

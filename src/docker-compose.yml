@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  postgresdb:
+    build: ./Docker_set/postgres/
+    environment:
+      - POSTGRES_USER=vlad
+      - POSTGRES_PASSWORD=vlad1234
+      - POSTGRES_DB=shop_db
+    restart: always
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+
+  shop:
+    build: ./
+    volumes:
+      - ./:/usr/src
+    restart: always
+    environment:
+      - PG_ADDR=postgresdb
+      - PG_USER=vlad
+      - PG_PASSWORD=vlad1234
+      - PG_DB=shop_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgresdb
