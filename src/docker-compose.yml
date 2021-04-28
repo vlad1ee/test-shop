@@ -21,6 +21,9 @@ services:
       - PG_USER=vlad
       - PG_PASSWORD=vlad1234
       - PG_DB=shop_db
+      - SECRET_KEY=django-insecure-kwgeb@l^#wp%b(j!j99q#1y(6vjs=ldigg*6c1-*yx5x=!^dai
+      - EMAIL_HOST_USER=online.shop.sunrise1@gmail.com
+      - EMAIL_HOST_PASSWORD=123456Qw
     ports:
       - "8000:8000"
     depends_on:
