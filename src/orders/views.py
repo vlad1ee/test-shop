@@ -29,6 +29,11 @@ class OrderAPIView(APIView):
 
 class MyOrderAPIView(APIView):
     def get(self, request):
-        orders = Order.objects.filter(user=request.user)
+        try:
+            orders = Order.objects.filter(user=request.user)
+        except TypeError:
+            return Response({'error': 'У вас нет заказов',
+                             'user': f'{request.user}'},
+                            status=status.HTTP_200_OK)
         serializer = MyOrderSerializer(orders, many=True)
         return Response(serializer.data)

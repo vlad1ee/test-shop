@@ -55,4 +55,4 @@ class CartAddAPIView(APIView):
             cart.products.remove(product)
         else:
             cart.products.add(product)
-        return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_201_CREATED)

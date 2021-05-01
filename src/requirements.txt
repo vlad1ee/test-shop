@@ -5,3 +5,4 @@ djoser
 python-dotenv
 djangorestframework-recursive
 psycopg2-binary
+drf-yasg
