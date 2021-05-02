@@ -1,7 +1,7 @@
 import random
 import string
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.core.mail import send_mail
 from rest_framework import serializers
 
@@ -49,3 +49,16 @@ class UserCreateSerializer(serializers.Serializer):
 
 class UserConfirmationSerializer(serializers.Serializer):
     verification_code = serializers.CharField()
+
+
+class UserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=255)
+    password = serializers.CharField(max_length=255)
+
+    def validate(self, values):
+        user = authenticate(**values)
+        if user:
+            values['user'] = user
+            return values
+        else:
+            raise serializers.ValidationError('Неверные данные')
